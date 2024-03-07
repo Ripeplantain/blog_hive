@@ -53,6 +53,7 @@ const updateBlog = async (blog: Iblog) => {
             },
         });
         const post = await response.json();
+        console.log('post updated successfully');
         return post;
     } catch(error){
         const err = error as Error;

@@ -25,13 +25,12 @@ const postData = ref({
   userId: 1
 });
 
-const { addBlog } = useBlogStore();
+const { addToBlogStore } = useBlogStore();
 const router = useRouter();
 
 function handleSubmit(this: any) {
-  console.log(postData.value);
   createBlog(postData.value);
-  addBlog(postData.value);
+  addToBlogStore(postData.value);
   postData.value = {
     title: '',
     body: '',

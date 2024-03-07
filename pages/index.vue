@@ -9,13 +9,13 @@
 import { useBlogStore } from '~/stores/blog';
 import { fetchBlogPosts } from '~/services/blogService';
 
-const { blogs, addBlog } = useBlogStore();
+const { blogs, addToBlogStore } = useBlogStore();
 
 onMounted(async () => {
     try {
         const blogPosts = await fetchBlogPosts();
         for (const blog of blogPosts) {
-            addBlog(blog);
+            addToBlogStore(blog);
         }
     } catch (error) {
         const err = error as Error;
