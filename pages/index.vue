@@ -1,12 +1,14 @@
 <template>
-    <div>
-        <BlogView :blogs="blogs" />
+    <div >
+        <BlogView
+            :blogs="blogs" />
     </div>
 </template>
 
 <script setup lang="ts">
 import { useBlogStore } from '~/stores/blog';
 import { fetchBlogPosts } from '~/services/blogService';
+import type { Iblog } from '~/interfaces/blog';
 
 const { blogs, addBlog } = useBlogStore();
 

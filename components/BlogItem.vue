@@ -3,12 +3,13 @@
         <div class="flex items-center justify-between w-full gap-x-4 text-xs">
             <time datetime="2020-03-16" class="text-gray-500">Mar 16, 2020</time>
             <div class="flex items-center gap-4">
-                <div class="flex items-center gap-1 text-gray-500 cursor-pointer">
+                <div
+                    @click="$emit('clickedEditButton', blog)"
+                    class="flex items-center gap-1 text-gray-500 cursor-pointer">
                     <iconsEdit class="h-4 w-4" />
                     <span>Edit</span>
                 </div>
                 <div    
-                    @click="removeBlogPost(blog.id)"
                     class="flex items-center gap-1 text-gray-500 cursor-pointer">
                     <iconsDelete class="h-4 w-4" />
                     <span>Delete</span>
