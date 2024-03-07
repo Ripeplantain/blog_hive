@@ -8,12 +8,14 @@
 import { useBlogStore } from '~/stores/blog';
 import { fetchBlogPosts } from '~/services/blogService';
 
-const { blogs, setBlogPosts } = useBlogStore();
+const { blogs, addBlog } = useBlogStore();
 
 onMounted(async () => {
     try {
         const blogPosts = await fetchBlogPosts();
-        setBlogPosts(blogPosts);
+        for (const blog of blogPosts) {
+            addBlog(blog);
+        }
     } catch (error) {
         const err = error as Error;
         console.log('Error fetching blog posts: ', err.message);

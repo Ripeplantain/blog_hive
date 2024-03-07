@@ -1,6 +1,8 @@
 <template>
-    <div class="flex flex-col items-center">
-        <Header />
-        <slot />
+    <div class="bg-white py-24 sm:py-32">
+        <div class="mx-auto max-w-7xl">
+            <Header />
+            <slot />
+        </div>
     </div>
 </template>

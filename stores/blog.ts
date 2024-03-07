@@ -20,10 +20,14 @@ export const useBlogStore = defineStore('blogs', () => {
     blogs.value = posts
   }
 
+  persist: {
+    storage: persistedState.localStorage
+  }
+
   return {
     blogs,
     addBlog,
     removeBlog,
-    setBlogPosts,
+    setBlogPosts
   }
 })
