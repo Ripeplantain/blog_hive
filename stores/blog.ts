@@ -16,18 +16,10 @@ export const useBlogStore = defineStore('blogs', () => {
     }
   }
 
-  const setBlogPosts = (posts: Iblog[]) => {
-    blogs.value = posts
-  }
-
-  persist: {
-    storage: persistedState.localStorage
-  }
 
   return {
     blogs,
     addBlog,
-    removeBlog,
-    setBlogPosts
+    removeBlog
   }
 })

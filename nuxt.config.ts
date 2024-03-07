@@ -12,13 +12,6 @@ export default defineNuxtConfig({
     '@': resolve(__dirname)
   },
   modules: [
-    '@pinia/nuxt',
-    '@pinia-plugin-persistedstate/nuxt',
+    '@pinia/nuxt'
   ],
-  piniaPersistedstate: {
-    cookieOptions: {
-      sameSite: 'strict',
-    },
-    storage: 'localStorage'
-  }
 })
