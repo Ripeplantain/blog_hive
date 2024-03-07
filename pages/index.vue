@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div class="p-12 grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-20">
         <BlogView
             :blogs="blogs" />
     </div>
@@ -8,7 +8,6 @@
 <script setup lang="ts">
 import { useBlogStore } from '~/stores/blog';
 import { fetchBlogPosts } from '~/services/blogService';
-import type { Iblog } from '~/interfaces/blog';
 
 const { blogs, addBlog } = useBlogStore();
 

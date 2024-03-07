@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white py-24 sm:py-32">
+    <div class="bg-white pt-20">
         <div class="mx-auto max-w-7xl">
             <Header />
             <slot />
