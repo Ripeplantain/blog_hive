@@ -8,9 +8,9 @@
 
 
 <script setup lang="ts">
-import type { IBlogViewProps, Iblog } from '~/interfaces/blog';
+import type { Iblog } from '~/interfaces/blog';
 
-const props: IBlogViewProps = defineProps({
+defineProps({
     blogs: {
         type: Array as PropType<Iblog[]>,
         required: true

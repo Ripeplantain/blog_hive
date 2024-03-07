@@ -7,9 +7,11 @@
                     <iconsEdit class="h-4 w-4" />
                     <span>Edit</span>
                 </div>
-                <div class="flex items-center gap-1 text-gray-500 cursor-pointer">
+                <div    
+                    @click="removeBlogPost(blog.id)"
+                    class="flex items-center gap-1 text-gray-500 cursor-pointer">
                     <iconsDelete class="h-4 w-4" />
-                    <span>Edit</span>
+                    <span>Delete</span>
                 </div>
             </div>
         </div>
@@ -27,12 +29,29 @@
 
 
 <script setup lang="ts">
-import type { Iblog, IBlogItemProps } from '~/interfaces/blog';
+import type { Iblog } from '~/interfaces/blog';
+import { deleteBlog } from '~/services/blogService';
+import { useBlogStore } from '~/stores/blog';
 
-const props: IBlogItemProps = defineProps({
+const { removeBlog } = useBlogStore()
+
+defineProps({
     blog: {
         type: Object as PropType<Iblog>,
         required: true
     }
 })
+
+function removeBlogPost(id: number){
+    if(confirm('Are you sure?')) {
+        try {
+            deleteBlog(id);
+            removeBlog(id);
+            console.log('Blog deleted');
+        } catch(error) {
+            const err = error as Error;
+            console.log('Error deleting blog: ', err.message);
+        }
+    }
+}
 </script>
