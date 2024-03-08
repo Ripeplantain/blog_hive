@@ -18,15 +18,17 @@
 import { createBlog } from '~/services/blogService';
 import { useBlogStore } from '~/stores/blog';
 import { useRouter } from 'vue-router';
+import useFlash from '~/composables/useFlash';
 
 const postData = ref({
   title: '',
   body: '',
-  userId: 1
+  userId: Math.floor(Math.random() * 200)
 });
 
 const { addToBlogStore } = useBlogStore();
 const router = useRouter();
+const { notify } = useFlash();
 
 function handleSubmit(this: any) {
   createBlog(postData.value);
@@ -36,6 +38,7 @@ function handleSubmit(this: any) {
     body: '',
     userId: 0
   };
+  notify('Blog post added successfully', 'success');
   router.push('/');
 }
 </script>

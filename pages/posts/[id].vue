@@ -18,12 +18,14 @@
 import { updateBlog, fetchBlog } from '~/services/blogService';
 import { useBlogStore } from '~/stores/blog';
 import type { Iblog } from '~/interfaces/blog';
+import useFlash from '~/composables/useFlash';
 import { useRoute, useRouter } from 'vue-router';
 
 
 const route = useRoute();
 const router = useRouter();
 const { updateBlogStore } = useBlogStore();
+const { notify } = useFlash();
 
 let blogPost = ref<Iblog>({
     id: 0,
@@ -38,6 +40,7 @@ onMounted(async () => {
         blogPost.value = blog;
     } catch (error) {
         const err = error as Error;
+        notify(err.message, 'error')
         console.log('Error fetching blog post: ', err.message);
     }
 });
@@ -51,6 +54,12 @@ function handleUpdate(this: any) {
         body: '',
         userId: 0
     };
+    this.$flashMessage.show({
+        type: 'success',
+        title: 'Post updated successfully',
+        message: 'Post updated successfully'
+    })
+    notify('Blog post updated successfully', 'success');
     router.push('/');
 }
 </script>
