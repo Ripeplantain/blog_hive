@@ -23,7 +23,7 @@ import { useRoute } from 'vue-router';
 
 
 const route = useRoute();
-const { updateBlogStore } = useBlogStore();
+const store = useBlogStore();
 const { notify } = useFlash();
 
 let blogPost = ref<Iblog>({
@@ -46,7 +46,7 @@ onMounted(async () => {
 
 function handleUpdate(this: any) {
     updateBlog(blogPost.value);
-    updateBlogStore(blogPost.value);
+    store.updateBlog(blogPost.value);
     blogPost.value = {
         id: 0,
         title: '',
@@ -54,7 +54,6 @@ function handleUpdate(this: any) {
         userId: 0
     };
     notify('Blog post updated successfully', 'success');
-    // navigateTo('/')
     setTimeout(() => {
         navigateTo('/')
     }, 5000);

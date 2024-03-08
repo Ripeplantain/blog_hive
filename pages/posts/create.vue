@@ -25,21 +25,20 @@ const postData = ref({
   userId: 1
 });
 
-const { addToBlogStore } = useBlogStore();
+const store = useBlogStore();
 const { notify } = useFlash();
 
 function handleSubmit(this: any) {
   createBlog(postData.value);
-  addToBlogStore(postData.value);
+  store.addBlog(postData.value);
   postData.value = {
     title: '',
     body: '',
     userId: 0
   };
   notify('Blog post added successfully', 'success');
-  // navigateTo('/')
   setTimeout(() => {
-    navigateTo('/')
+    navigateTo('/');
   }, 5000);
 }
 </script>

@@ -36,7 +36,7 @@ import { useRouter } from 'vue-router';
 import useFlash from '~/composables/useFlash';
 
 
-const { removeFromBlogStore } = useBlogStore()
+const store = useBlogStore()
 const router = useRouter();
 const { notify } = useFlash();
 
@@ -52,7 +52,7 @@ function removeBlogPost(id: number) {
     if (confirm('Are you sure?')) {
         try {
             deleteBlog(id);
-            removeFromBlogStore(id);
+            store.deleteBlog(id);
             notify('Blog post deleted successfully', 'success');
         } catch (error) {
             const err = error as Error;

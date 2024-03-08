@@ -12,21 +12,20 @@
 
 <script setup lang="ts">
 import { useBlogStore } from '~/stores/blog';
-import { fetchBlogPosts } from '~/services/blogService';
 import useFlash from '~/composables/useFlash';
 
-const { blogs, addToBlogStore } = useBlogStore();
+const store = useBlogStore();
 const { notify } = useFlash();
 const pageSize = 10;
 let currentPage = ref(1);
 
 const totalPages = computed(() => {
-    return Math.ceil(blogs.length / pageSize);
+    return Math.ceil(store.getBlogs.length / pageSize);
 });
 
 const pagedBlogs = computed(() => {
     const startIndex = (currentPage.value - 1) * pageSize;
-    return blogs.slice(startIndex, startIndex + pageSize);
+    return store.getBlogs.slice(startIndex, startIndex + pageSize);
 })
 
 function previousPage() {
@@ -43,10 +42,9 @@ function nextPage() {
 
 onMounted(async () => {
     try {
-        const blogPosts = await fetchBlogPosts();
-        for (const blog of blogPosts) {
-            addToBlogStore(blog);
-        }
+        await store.fetchBlogs();
+        console.log('Blogs fetched successfully');
+        console.log(store.getBlogs.length);
     } catch (error) {
         const err = error as Error;
         notify('Error fetching blog posts', 'error');

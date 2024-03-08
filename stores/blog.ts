@@ -1,33 +1,39 @@
 import { defineStore } from 'pinia'
 import type { Iblog } from '~/interfaces/blog'
+import { fetchBlogPosts } from '~/services/blogService'
 
 
-export const useBlogStore = defineStore('blogs', () => {
+export const useBlogStore = defineStore('blog', () => {
   const blogs = ref<Iblog[]>([])
 
-  function addToBlogStore(blog: Iblog) {
+  const getBlogs = computed(() => blogs.value)
+
+  async function fetchBlogs() {
+    blogs.value = await fetchBlogPosts()
+  }
+
+  function addBlog(blog: Iblog) {
+    console.log('blog', blog)
+    console.log('before', getBlogs.value.length)
     blogs.value.push(blog)
+    console.log('after', getBlogs.value.length)
   }
 
-  function removeFromBlogStore(id: number) {
-    const index = blogs.value.findIndex((blog) => blog.id === id)
-    if (index !== -1) {
-      blogs.value.splice(index, 1)
-    }
-  }
-
-  function updateBlogStore(blog: Iblog) {
+  function updateBlog(blog: Iblog) {
     const index = blogs.value.findIndex((b) => b.id === blog.id)
-    if (index !== -1) {
-      blogs.value[index] = blog
-    }
+    blogs.value[index] = blog
   }
 
+  function deleteBlog(id: number) {
+    const index = blogs.value.findIndex((b) => b.id === id)
+    blogs.value.splice(index, 1)
+  }
 
   return {
-    blogs,
-    addToBlogStore,
-    removeFromBlogStore,
-    updateBlogStore,
+    getBlogs,
+    fetchBlogs,
+    addBlog,
+    updateBlog,
+    deleteBlog,
   }
 })
