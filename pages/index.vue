@@ -2,11 +2,17 @@
     <div class="p-12 grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-20">
         <BlogView
             :blogs="pagedBlogs" />
+
         <Paginator
             :currentPage="currentPage"
             :totalPages="totalPages"
             @clickedPreviousButton="previousPage"
-            @clickedNextButton="nextPage" />
+            @clickedNextButton="nextPage"
+            @pageChanged="changePage" />
+    </div>
+
+    <div class="flex justify-center items-center my-auto">
+            <h3>{{ currentPage }} / {{ totalPages }}</h3>
     </div>
 </template>
 
@@ -38,6 +44,10 @@ function nextPage() {
     if (currentPage.value < totalPages.value) {
         currentPage.value++;
     }
+}
+
+function changePage(pageNumber: number) {
+    currentPage.value = pageNumber;
 }
 
 onMounted(async () => {
