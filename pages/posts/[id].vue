@@ -48,18 +48,13 @@ onMounted(async () => {
 function handleUpdate(this: any) {
     updateBlog(blogPost.value);
     updateBlogStore(blogPost.value);
+    notify('Blog post updated successfully', 'success');
     blogPost.value = {
         id: 0,
         title: '',
         body: '',
         userId: 0
     };
-    this.$flashMessage.show({
-        type: 'success',
-        title: 'Post updated successfully',
-        message: 'Post updated successfully'
-    })
-    notify('Blog post updated successfully', 'success');
     router.push('/');
 }
 </script>

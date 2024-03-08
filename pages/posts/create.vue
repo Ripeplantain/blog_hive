@@ -23,7 +23,7 @@ import useFlash from '~/composables/useFlash';
 const postData = ref({
   title: '',
   body: '',
-  userId: Math.floor(Math.random() * 200)
+  userId: 1
 });
 
 const { addToBlogStore } = useBlogStore();
@@ -42,5 +42,3 @@ function handleSubmit(this: any) {
   router.push('/');
 }
 </script>
-
-<style></style>
