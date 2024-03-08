@@ -19,11 +19,10 @@ import { updateBlog, fetchBlog } from '~/services/blogService';
 import { useBlogStore } from '~/stores/blog';
 import type { Iblog } from '~/interfaces/blog';
 import useFlash from '~/composables/useFlash';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 
 const route = useRoute();
-const router = useRouter();
 const { updateBlogStore } = useBlogStore();
 const { notify } = useFlash();
 
@@ -48,13 +47,16 @@ onMounted(async () => {
 function handleUpdate(this: any) {
     updateBlog(blogPost.value);
     updateBlogStore(blogPost.value);
-    notify('Blog post updated successfully', 'success');
     blogPost.value = {
         id: 0,
         title: '',
         body: '',
         userId: 0
     };
-    router.push('/');
+    notify('Blog post updated successfully', 'success');
+    // navigateTo('/')
+    setTimeout(() => {
+        navigateTo('/')
+    }, 5000);
 }
 </script>

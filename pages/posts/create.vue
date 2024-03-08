@@ -17,7 +17,6 @@
 <script lang="ts" setup>
 import { createBlog } from '~/services/blogService';
 import { useBlogStore } from '~/stores/blog';
-import { useRouter } from 'vue-router';
 import useFlash from '~/composables/useFlash';
 
 const postData = ref({
@@ -27,7 +26,6 @@ const postData = ref({
 });
 
 const { addToBlogStore } = useBlogStore();
-const router = useRouter();
 const { notify } = useFlash();
 
 function handleSubmit(this: any) {
@@ -39,6 +37,9 @@ function handleSubmit(this: any) {
     userId: 0
   };
   notify('Blog post added successfully', 'success');
-  router.push('/');
+  // navigateTo('/')
+  setTimeout(() => {
+    navigateTo('/')
+  }, 5000);
 }
 </script>
