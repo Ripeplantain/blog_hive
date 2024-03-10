@@ -19,8 +19,6 @@ import { updateBlog, fetchBlog } from '~/services/blogService';
 import { useBlogStore } from '~/stores/blog';
 import type { Iblog } from '~/interfaces/blog';
 import useFlash from '~/composables/useFlash';
-import { useRoute } from 'vue-router';
-
 
 const route = useRoute();
 const store = useBlogStore();

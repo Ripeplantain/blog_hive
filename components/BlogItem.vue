@@ -8,8 +8,7 @@
                     <iconsEdit class="h-4 w-4" />
                     <span class="font-lato">Edit</span>
                 </div>
-                <div @click="removeBlogPost(blog.id !== undefined ? blog.id : 0)"
-                    class="flex items-center gap-1 text-gray-500 cursor-pointer">
+                <div @click="toggleDeleteModal" class="flex items-center gap-1 text-gray-500 cursor-pointer">
                     <iconsDelete class="h-4 w-4" />
                     <span class="font-lato">Delete</span>
                 </div>
@@ -25,6 +24,9 @@
             <p class="mt-5 font-lato line-clamp-3 text-sm leading-6 text-gray-600">{{ blog.body }}</p>
         </div>
     </article>
+
+    <Modal v-show="showDeleteModal" title="Delete Blog post" message="Are you sure you want to delete blog post?"
+        @confirm="removeBlogPost(blog.id !== undefined ? blog.id : 0)" @close="toggleDeleteModal" />
 </template>
 
 
@@ -32,13 +34,12 @@
 import type { Iblog } from '~/interfaces/blog';
 import { deleteBlog } from '~/services/blogService';
 import { useBlogStore } from '~/stores/blog';
-import { useRouter } from 'vue-router';
 import useFlash from '~/composables/useFlash';
-
 
 const store = useBlogStore()
 const router = useRouter();
 const { notify } = useFlash();
+const showDeleteModal = ref(false);
 
 defineProps({
     blog: {
@@ -47,18 +48,21 @@ defineProps({
     }
 })
 
+function toggleDeleteModal() {
+    showDeleteModal.value = !showDeleteModal.value;
+    console.log(showDeleteModal.value);
+}
 
 function removeBlogPost(id: number) {
-    if (confirm('Are you sure?')) {
-        try {
-            deleteBlog(id);
-            store.deleteBlog(id);
-            notify('Blog post deleted successfully', 'success');
-        } catch (error) {
-            const err = error as Error;
-            notify(err.message, 'error');
-            console.log('Error deleting blog: ', err.message);
-        }
+    try {
+        deleteBlog(id);
+        store.deleteBlog(id);
+        notify('Blog post deleted successfully', 'success');
+        toggleDeleteModal();
+    } catch (error) {
+        const err = error as Error;
+        notify(err.message, 'error');
+        console.log('Error deleting blog: ', err.message);
     }
 }
 
