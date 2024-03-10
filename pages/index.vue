@@ -6,8 +6,6 @@
         <Paginator
             :currentPage="currentPage"
             :totalPages="totalPages"
-            @clickedPreviousButton="previousPage"
-            @clickedNextButton="nextPage"
             @pageChanged="changePage" />
     </div>
 
@@ -34,17 +32,6 @@ const pagedBlogs = computed(() => {
     return store.getBlogs.slice(startIndex, startIndex + pageSize);
 })
 
-function previousPage() {
-    if (currentPage.value > 1) {
-        currentPage.value--;
-    }
-}
-
-function nextPage() {
-    if (currentPage.value < totalPages.value) {
-        currentPage.value++;
-    }
-}
 
 function changePage(pageNumber: number) {
     currentPage.value = pageNumber;
