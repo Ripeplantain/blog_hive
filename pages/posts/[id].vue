@@ -31,6 +31,12 @@ let blogPost = ref<Iblog>({
     userId: 0
 });
 
+definePageMeta({
+    title: 'Edit Blog Post',
+    description: 'Edit blog post',
+    middleware: 'is-admin'
+});
+
 onMounted(async () => {
     try {
         const blog = await fetchBlog(Number(route.params.id));
