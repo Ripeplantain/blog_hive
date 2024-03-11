@@ -14,7 +14,6 @@ export const useBlogStore = defineStore('blog', () => {
 
   function addBlog(blog: Iblog) {
     blogs.value.push(blog)
-    console.log('after', getBlogs.value.length)
   }
 
   function updateBlog(blog: Iblog) {
