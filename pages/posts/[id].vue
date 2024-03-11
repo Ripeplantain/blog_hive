@@ -59,7 +59,7 @@ function handleUpdate(this: any) {
     };
     notify('Blog post updated successfully', 'success');
     setTimeout(() => {
-        navigateTo('/')
+        navigateTo('/posts')
     }, 5000);
 }
 </script>

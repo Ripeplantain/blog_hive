@@ -38,7 +38,7 @@ function handleSubmit(this: any) {
   };
   notify('Blog post added successfully', 'success');
   setTimeout(() => {
-    navigateTo('/');
+    navigateTo('/posts');
   }, 5000);
 }
 </script>
