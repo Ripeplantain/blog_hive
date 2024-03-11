@@ -1,5 +1,7 @@
 <template>
     <div class="p-12 grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-20">
+        <LoaderSpinner v-if="loading" />
+
         <BlogView
             :blogs="pagedBlogs" />
 
@@ -22,6 +24,7 @@ const store = useBlogStore();
 const { notify } = useFlash();
 const pageSize = 10;
 let currentPage = ref(1);
+const loading = ref(true)
 
 const totalPages = computed(() => {
     return Math.ceil(store.getBlogs.length / pageSize);
@@ -40,12 +43,11 @@ function changePage(pageNumber: number) {
 onMounted(async () => {
     try {
         await store.fetchBlogs();
-        console.log('Blogs fetched successfully');
-        console.log(store.getBlogs.length);
+        loading.value = false;
     } catch (error) {
         const err = error as Error;
         notify('Error fetching blog posts', 'error');
-        console.log('Error fetching blog posts: ', err.message);
+        console.error('Error fetching blog posts: ', err.message);
     }
 });
 </script>
