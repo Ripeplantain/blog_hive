@@ -2,6 +2,7 @@
     <div
         v-for="blog in blogs">
         <BlogItem
+            :key="blog.id"
             :blog="blog" />
     </div>
 </template>

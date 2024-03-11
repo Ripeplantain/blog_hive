@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between w-full gap-x-4 text-xs">
             <time datetime="2020-03-16" class="text-gray-500 font-lato">Mar 16, 2020</time>
             <div class="flex items-center gap-4">
-                <div @click="editBlogPost(blog.id !== undefined ? blog.id : 0)"
+                <div @click="editBlogPost(blog.id)"
                     class="flex items-center gap-1 text-gray-500 cursor-pointer">
                     <iconsEdit class="h-4 w-4" />
                     <span class="font-lato">Edit</span>
@@ -26,7 +26,7 @@
     </article>
 
     <Modal v-show="showDeleteModal" title="Delete Blog post" message="Are you sure you want to delete blog post?"
-        @confirm="removeBlogPost(blog.id !== undefined ? blog.id : 0)" @close="toggleDeleteModal" />
+        @confirm="removeBlogPost(blog.id)" @close="toggleDeleteModal" />
 </template>
 
 
@@ -53,7 +53,7 @@ function toggleDeleteModal() {
     console.log(showDeleteModal.value);
 }
 
-function removeBlogPost(id: number) {
+function removeBlogPost(id: number = 0) {
     try {
         deleteBlog(id);
         store.deleteBlog(id);
@@ -66,7 +66,7 @@ function removeBlogPost(id: number) {
     }
 }
 
-function editBlogPost(id: number) {
+function editBlogPost(id: number = 0) {
     router.push(`/posts/${id}`);
 }
 </script>
