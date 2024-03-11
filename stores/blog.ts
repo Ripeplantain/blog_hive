@@ -9,21 +9,41 @@ export const useBlogStore = defineStore('blog', () => {
   const getBlogs = computed(() => blogs.value)
 
   async function fetchBlogs() {
-    blogs.value = await fetchBlogPosts()
+    try {
+      blogs.value = await fetchBlogPosts()
+    } catch (error) {
+      const err = error as Error
+      console.error(err.message)
+    }
   }
 
   function addBlog(blog: Iblog) {
-    blogs.value.push(blog)
+    try {
+      blogs.value.push(blog)
+    } catch (error){
+      const err = error as Error
+      console.error(err.message) 
+    }
   }
 
   function updateBlog(blog: Iblog) {
-    const index = blogs.value.findIndex((b) => b.id === blog.id)
-    blogs.value[index] = blog
+    try {
+      const index = blogs.value.findIndex((blogToUpdate) => blogToUpdate.id === blog.id)
+      blogs.value[index] = blog
+    } catch(error) {
+      const err = error as Error
+      console.error(err.message)
+    }
   }
 
   function deleteBlog(id: number) {
-    const index = blogs.value.findIndex((b) => b.id === id)
-    blogs.value.splice(index, 1)
+    try {
+      const index = blogs.value.findIndex((blogToDelete) => blogToDelete.id === id)
+      blogs.value.splice(index, 1)
+    } catch (error){
+      const err = error as Error
+      console.error(err.message)
+    }
   }
 
   return {
